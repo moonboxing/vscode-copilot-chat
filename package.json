@@ -22,7 +22,7 @@
 	"icon": "assets/copilot.png",
 	"pricing": "Trial",
 	"engines": {
-		"vscode": "^1.103.0-insider",
+		"vscode": "^1.103.0-20250717",
 		"npm": ">=9.0.0",
 		"node": ">=22.14.0"
 	},
@@ -130,7 +130,8 @@
 		"contribLanguageModelToolSets",
 		"textDocumentChangeReason",
 		"resolvers",
-		"taskExecutionTerminal"
+		"taskExecutionTerminal",
+		"dataChannels"
 	],
 	"contributes": {
 		"languageModelTools": [
@@ -2050,6 +2051,11 @@
 				"category": "Developer"
 			},
 			{
+				"command": "github.copilot.debug.inlineEdit.clearCache",
+				"title": "%github.copilot.command.inlineEdit.clearCache%",
+				"category": "Developer"
+			},
+			{
 				"command": "github.copilot.debug.generateSTest",
 				"title": "%github.copilot.command.generateSTest%",
 				"enablement": "github.copilot.debugReportFeedback",
@@ -3155,6 +3161,10 @@
 					"submenu": "github.copilot.chat.debug.filter",
 					"when": "view == copilot-chat",
 					"group": "navigation"
+				},
+				{
+					"command": "github.copilot.debug.showChatLogView",
+					"when": "view == workbench.panel.chat.view.copilot"
 				}
 			],
 			"view/item/context": [
@@ -3310,6 +3320,18 @@
 					"command": "github.copilot.chat.review.changes.cancel",
 					"group": "navigation",
 					"when": "github.copilot.chat.reviewDiff.enabled && github.copilot.chat.review.sourceControlProgress && scmProvider == git && scmProviderRootUri in github.copilot.chat.reviewDiff.enabledRootUris"
+				}
+			],
+			"scm/resourceGroup/context": [
+				{
+					"command": "github.copilot.chat.review.stagedChanges",
+					"when": "github.copilot.chat.reviewDiff.enabled && scmProvider == git && scmResourceGroup == index",
+					"group": "inline@-3"
+				},
+				{
+					"command": "github.copilot.chat.review.unstagedChanges",
+					"when": "github.copilot.chat.reviewDiff.enabled && scmProvider == git && scmResourceGroup == workingTree",
+					"group": "inline@-3"
 				}
 			],
 			"scm/inputBox": [
@@ -3760,7 +3782,7 @@
 		"@types/source-map-support": "^0.5.10",
 		"@types/tar": "^6.1.13",
 		"@types/vinyl": "^2.0.12",
-		"@types/vscode": "^1.96.0",
+		"@types/vscode": "^1.102.0",
 		"@typescript-eslint/eslint-plugin": "^8.35.0",
 		"@typescript-eslint/parser": "^8.32.0",
 		"@typescript-eslint/typescript-estree": "^8.26.1",
